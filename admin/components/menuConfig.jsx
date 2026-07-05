@@ -60,6 +60,11 @@ export const settingsChildren = [
     label: "Footer",
     href: "/admin/footer",
   },
+  {
+    icon: <LayoutDashboard size={16} />,
+    label: "About Page",
+    href: "/admin/about",
+  },
     {
     icon: <LayoutDashboard size={16} />,
     label: "Action Button",

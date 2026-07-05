@@ -16,6 +16,7 @@ import visitRoutes from "./analytics.js";
 import FloatingActionButton from "./FloatingActionButton.route.js";
 import homeBadgeRoutes from "./homeBadge.js";
 import facebookGroupRoutes from "./facebookGroup.routes.js";
+import aboutRoutes from "./about.routes.js";
 
 
 
@@ -37,5 +38,6 @@ router.use("/visit", visitRoutes);
 router.use("/contact-button", FloatingActionButton);
 router.use("/homeBadges", homeBadgeRoutes);
 router.use("/facebook-group", facebookGroupRoutes);
+router.use("/about", aboutRoutes);
 
 export default router;
