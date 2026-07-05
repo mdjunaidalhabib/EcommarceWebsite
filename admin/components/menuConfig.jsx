@@ -9,6 +9,7 @@ import {
   Eye,
   Settings,
   LayoutDashboard,
+  Trash2,
 } from "lucide-react";
 
 export const navItems = [
@@ -42,6 +43,8 @@ export const navItems = [
     label: "Visitor",
     href: "/admin/analytics",
   },
+
+  { icon: <Trash2 size={18} />, label: "Trash", href: "/admin/trash" },
 
   { icon: <Settings size={18} />, label: "Settings", href: "/admin/settings" },
 ];

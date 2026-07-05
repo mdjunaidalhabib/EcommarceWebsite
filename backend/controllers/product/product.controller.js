@@ -3,6 +3,7 @@ import fs from "fs";
 import sharp from "sharp";
 import path from "path";
 import { deleteFromCloudinary } from "../../utils/cloudinary/cloudinaryHelpers.js";
+import { moveToTrash } from "../../utils/trash/trash.helpers.js";
 import {
   toNumber,
   computeIsSoldOut,
@@ -530,17 +531,12 @@ export const deleteProduct = async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found" });
 
-    if (product.image) await deleteFromCloudinary(product.image);
-    for (let url of product.images) await deleteFromCloudinary(url);
-
-    for (let color of product.colors) {
-      for (let url of color.images) await deleteFromCloudinary(url);
-    }
-
-    await product.deleteOne();
+    // ✅ hard-delete এর বদলে Trash এ move — 3 দিন পর auto-purge হবে,
+    // এর মাঝে Trash থেকে restore করা যাবে। তাই এখানে image ডিলিট করা হচ্ছে না।
+    await moveToTrash("Product", product);
     await normalizeOrders();
 
-    res.json({ message: "🗑️ Product deleted successfully" });
+    res.json({ message: "🗑️ Product moved to Trash" });
   } catch (err) {
     res.status(500).json({ error: err?.message || "Server error" });
   }
