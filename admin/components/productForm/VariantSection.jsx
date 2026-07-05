@@ -475,8 +475,7 @@ export default function VariantSection({
                 Variant Images (Required) *
                 <span className="ml-2 text-[10px] font-semibold text-gray-500 normal-case">
                   (যেকোনো image format → Auto {IMAGE_RULE.width}×
-                  {IMAGE_RULE.height}, max{" "}
-                  {Math.floor(IMAGE_RULE.maxBytes / 1024)}KB)
+                  {IMAGE_RULE.height})
                 </span>
                 <span
                   className={`ml-2 text-[10px] font-bold normal-case ${
