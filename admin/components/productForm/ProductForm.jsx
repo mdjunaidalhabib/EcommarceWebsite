@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { X } from "lucide-react";
 import Toast from "../Toast";
 import HeaderSerialStatus from "./HeaderSerialStatus";
 import BasicInfoCategory from "./BasicInfoCategory";
@@ -344,7 +343,7 @@ export default function ProductForm({
 
     // no update block
     if (!isDirty) {
-      return setToast({ type: "error", message: "কোনো পরিবর্তন করা হয়নি" });
+      return setToast({ type: "error", message: "কোনো পরিবর্তন করা হয়নি" });
     }
 
     // files normalize not ready
@@ -462,14 +461,6 @@ export default function ProductForm({
         onSubmit={handleSubmit}
         className="relative bg-white rounded-2xl w-full max-w-5xl max-h-[98vh] overflow-y-auto shadow-xl"
       >
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-red-500 z-30"
-        >
-          <X size={24} />
-        </button>
-
         {/* Sticky header */}
         <div className="sticky top-0 z-20 bg-white/95 backdrop-blur border-b">
           <div className="flex items-center justify-between px-6 py-3">
@@ -491,7 +482,12 @@ export default function ProductForm({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl font-bold text-sm border bg-white hover:bg-gray-50 active:scale-[0.99]"
+                disabled={processing}
+                className={`px-4 py-2 rounded-xl font-bold text-sm border bg-white active:scale-[0.99] ${
+                  processing
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-gray-50"
+                }`}
               >
                 ✖ Cancel
               </button>
@@ -519,7 +515,23 @@ export default function ProductForm({
           </div>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="relative">
+          {processing && (
+            <div className="absolute inset-0 z-40 flex items-center justify-center bg-white/60 backdrop-blur-[2px] rounded-b-2xl cursor-not-allowed">
+              <div className="flex flex-col items-center gap-2">
+                <div className="h-8 w-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+                <span className="text-sm font-bold text-indigo-700">
+                  প্রসেসিং হচ্ছে... অপেক্ষা করুন
+                </span>
+              </div>
+            </div>
+          )}
+
+          <div
+            className={`p-6 space-y-6 transition-all ${
+              processing ? "blur-sm pointer-events-none select-none" : ""
+            }`}
+          >
           <HeaderSerialStatus
             product={product}
             form={form}
@@ -663,6 +675,7 @@ export default function ProductForm({
               }))
             }
           />
+          </div>
         </div>
       </form>
 
