@@ -64,6 +64,11 @@ export const settingsChildren = [
   },
   {
     icon: <LayoutDashboard size={16} />,
+    label: "Facebook Group",
+    href: "/admin/facebookGroup",
+  },
+  {
+    icon: <LayoutDashboard size={16} />,
     label: "Delivery Charge",
     href: "/admin/deliveryCharge",
   },

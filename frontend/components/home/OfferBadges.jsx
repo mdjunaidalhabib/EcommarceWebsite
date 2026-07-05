@@ -1,7 +1,15 @@
 "use client";
 
 import React from "react";
-import { FaShippingFast, FaShoppingBag, FaGift, FaTag, FaFire, FaStar, FaPercent } from "react-icons/fa";
+import {
+  FaShippingFast,
+  FaShoppingBag,
+  FaGift,
+  FaTag,
+  FaFire,
+  FaStar,
+  FaPercent,
+} from "react-icons/fa";
 import { motion } from "framer-motion";
 
 // ✅ icon key (DB-তে সেভ হওয়া) → actual react-icon component
@@ -68,10 +76,10 @@ export default function OfferBar({ badges, activeFilter, onFilterChange }) {
   };
 
   return (
-    <div className="flex flex-nowrap justify-center items-center gap-1 md:gap-8 lg:gap-14 w-full px-1">
+    <div className="grid grid-cols-3 sm:flex sm:flex-wrap sm:justify-center gap-1.5 sm:gap-3 w-full px-1">
       {list.map((badge) => {
         const key = badge.field;
-        const b = { ...THEME_MAP[key] || DEFAULT_THEME };
+        const b = { ...(THEME_MAP[key] || DEFAULT_THEME) };
         const Icon = ICON_MAP[badge.icon] || FaGift;
         const isActive = activeFilter === key;
 
@@ -85,8 +93,9 @@ export default function OfferBar({ badges, activeFilter, onFilterChange }) {
                 ? { scale: [1, 1.07, 1.04], transition: { duration: 0.28 } }
                 : { scale: 1 }
             }
-            className={`relative flex items-center gap-1 md:gap-1.5
-              px-2 py-1 md:px-2.5 md:py-1.5 lg:px-3 lg:py-1.5 rounded-md
+            className={`relative flex sm:inline-flex items-center justify-center gap-0.5 md:gap-2
+              w-full sm:w-fit min-w-0 flex-shrink-0
+              px-0 py-1 sm:px-3.5 sm:py-2 lg:px-4 lg:py-2.5 rounded-md
               cursor-pointer border overflow-hidden
               transition-colors duration-300
               ${
@@ -165,7 +174,7 @@ export default function OfferBar({ badges, activeFilter, onFilterChange }) {
             </div>
 
             {/* ── Label — এডমিন প্যানেল থেকে দেওয়া নাম ── */}
-            <span className="relative text-[13px] md:text-[18px] lg:text-[20px] font-medium whitespace-nowrap">
+            <span className="relative min-w-0 truncate sm:whitespace-nowrap sm:overflow-visible sm:text-clip text-[11px] sm:text-[14px] lg:text-[15px] font-medium">
               {badge.name}
             </span>
           </motion.button>
@@ -174,4 +183,3 @@ export default function OfferBar({ badges, activeFilter, onFilterChange }) {
     </div>
   );
 }
-

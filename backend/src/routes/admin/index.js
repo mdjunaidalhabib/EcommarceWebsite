@@ -16,6 +16,7 @@ import courierStatusRouter from "./courierStatus.js";
 import courierLiveRouter from "./courierLive.js";
 import FloatingActionButton from "./FloatingActionButton.admin.route.js";
 import homeBadgeAdminRoutes from "./homeBadge.admin.js";
+import facebookGroupAdminRoutes from "./facebookGroup.admin.routes.js";
 
 
 
@@ -38,6 +39,7 @@ router.use("/api/courier", courierStatusRouter);
 router.use("/api/courier", courierLiveRouter);
 router.use("/contact-button", FloatingActionButton);
 router.use("/homeBadges", homeBadgeAdminRoutes);
+router.use("/facebook-group", facebookGroupAdminRoutes);
 
 
 export default router;

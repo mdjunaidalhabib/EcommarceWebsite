@@ -166,17 +166,13 @@ function ProductGrid({ products }) {
 
   return (
     <motion.div
-      className="flex flex-wrap gap-2 sm:gap-3"
+      className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4"
       variants={container}
       initial="hidden"
       animate="show"
     >
       {products.map((prod) => (
-        <motion.div
-          key={prod._id}
-          variants={item}
-          className="w-[44%] md:w-[19%] flex-shrink-0"
-        >
+        <motion.div key={prod._id} variants={item}>
           <ProductCard product={prod} />
         </motion.div>
       ))}
