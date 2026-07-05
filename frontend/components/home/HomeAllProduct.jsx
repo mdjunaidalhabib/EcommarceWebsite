@@ -98,7 +98,7 @@ function useDragScroll(ref) {
 }
 
 // ── Horizontal scroll row (peek style) ─────────────────────
-// ✅ mobile-এ ~2টা কার্ড পুরোপুরি + পরের কার্ডের কিছুটা অংশ দেখা যায়,
+// ✅ mobile-এ ঠিক ২টা কার্ড পুরোপুরি + ৩নং কার্ডের একটা অংশ (peek) দেখা যায়,
 // desktop-এ ~5টা কার্ড পুরোপুরি + পরের কার্ডের কিছুটা অংশ দেখা যায় —
 // এতে ইউজার বুঝতে পারে যে আরও প্রোডাক্ট আছে (scroll করার hint)।
 // ✅ scrollbar সম্পূর্ণ hidden (Chrome/Safari/Firefox সব জায়গায়)।
@@ -501,6 +501,7 @@ export default function CategoryTabsSection() {
                           src={cat.image || "/no-image.png"}
                           alt={cat.name}
                           fill
+                          sizes="40px"
                           className="object-cover"
                           draggable={false}
                         />
@@ -522,13 +523,21 @@ export default function CategoryTabsSection() {
                       </button>
                     </div>
 
-                    {/* ✅ ৬টা বা তার বেশি প্রোডাক্ট থাকলে mobile-এ ~2টা +
-                        desktop-এ ~5টা কার্ড পুরোপুরি দেখা যায়, পরের
-                        কার্ডের কিছু অংশ (peek) দেখা যায় যাতে বোঝা যায়
-                        আরও প্রোডাক্ট আছে (HorizontalScrollRow + drag scroll)।
+                    {/* ✅ ৬টা বা তার বেশি প্রোডাক্ট থাকলে mobile-এ ঠিক ২টা
+                        card পুরোপুরি + ৩নং কার্ডের একটা অংশ (peek) দেখা
+                        যায়, desktop-এ ~5টা কার্ড পুরোপুরি + পরের কার্ডের
+                        কিছু অংশ (peek) দেখা যায় যাতে বোঝা যায় আরও প্রোডাক্ট
+                        আছে (HorizontalScrollRow + drag scroll)।
                         ✅ ৫টা বা তার কম প্রোডাক্ট থাকলে normal wrap grid
                         দেখায়, যাতে card গুলো ফাঁকা জায়গা রেখে "সরু/সুতো"
-                        না দেখিয়ে স্বাভাবিক size ধরে সারিতে বসে। */}
+                        না দেখিয়ে স্বাভাবিক size ধরে সারিতে বসে।
+
+                        📐 mobile width হিসাব (gap-2 = 0.5rem, ২টা gap ধরে):
+                        containerWidth = 2×card + 0.4×card(peek) + 2×gap
+                                       = 2.4×card + 1rem
+                        => card = (100% - 1rem) / 2.4
+                        → w-[calc((100%-1rem)/2.4)]
+                        (২.৪ সংখ্যাটা কমালে peek বেশি দেখাবে, বাড়ালে কম) */}
                     {catProducts.length <= 5 ? (
                       <div className="flex flex-wrap gap-2 sm:gap-3">
                         {catProducts.map((prod) => (
@@ -545,7 +554,7 @@ export default function CategoryTabsSection() {
                         {catProducts.map((prod) => (
                           <div
                             key={prod._id}
-                            className="w-[44%] md:w-[19%] flex-shrink-0"
+                            className="w-[calc((100%-1rem)/2.4)] md:w-[19%] flex-shrink-0"
                           >
                             <ProductCard product={prod} />
                           </div>
